@@ -1,0 +1,26 @@
+<div class="favorite-detail">
+  <div>
+    <h3>
+      <a href="{{ favorite.url }}" target="_blank">{{ favorite.title }}</a>
+    </h3>
+  </div>
+  <div class="text-muted">
+    <span class="glyphicon glyphicon-tags"></span> 
+    Tags: {{ favorite.tags }}
+  </div>
+  <div class="comment">
+    <h4>Write down your thought...</h4>
+    <textarea class="form-control" rows="3"></textarea>
+    <button class="btn btn-primary pull-right">Submit</button>
+  </div>
+  <div class="btn-group pull-center">
+    <button class="btn btn-danger" (click)="deleteFavorite()">
+      <span class="glyphicon glyphicon-exclamation-sign"></span>
+      Delete Favorite
+    </button>
+    <button class="btn btn-info" *ngIf="!favorite.read">
+      <span class="glyphicon glyphicon-star"></span>
+      Mark as Read
+    </button>
+  </div>
+</div>

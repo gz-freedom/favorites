@@ -7,11 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApiService } from './api.service';
 import { ArrayToString } from './app.pipe';
+import { FavoriteDetailComponent } from './favorite-detail/favorite-detail.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ArrayToString
+    ArrayToString,
+    FavoriteDetailComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -22,4 +26,5 @@ import { ArrayToString } from './app.pipe';
   providers: [ApiService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

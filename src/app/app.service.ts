@@ -25,5 +25,9 @@ export class AppService {
 
   addTag(tag: string): Observable<string> {
     return this.api.addTag(tag);
-  } 
+  }
+
+  getFavoriteById(id: number): Observable<Favorite> {
+    return this.api.getFavoriteById(id);
+  }
 }

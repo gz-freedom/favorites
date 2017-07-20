@@ -39,4 +39,11 @@ export class ApiService {
     return this.http.put(API_URL + "/tags", tag)
         .map(response => response.json());
   }
+
+  public getFavoriteById(id: number): Observable<Favorite> {
+    return this.http.get(API_URL + "/favorites/" + id)
+        .map(response => {
+          return response.json();
+        });
+  }
 }
