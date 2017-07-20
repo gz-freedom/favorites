@@ -20,4 +20,23 @@ export class ApiService {
           return response.json();
         });
   }
+  
+  public addFavorite(favorite: Favorite): Observable<Favorite> {
+    return this.http.post(API_URL + "/favorites", favorite)
+          .map(response => {
+            return new Favorite(response.json());
+          });
+  }
+  
+  public getAllTags(): Observable<string[]> {
+    return this.http.get(API_URL + "/tags")
+        .map(response => {
+          return response.json();
+        });
+  }
+  
+  public addTag(tag): Observable<string> {
+    return this.http.put(API_URL + "/tags", tag)
+        .map(response => response.json());
+  }
 }

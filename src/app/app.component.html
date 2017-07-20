@@ -10,22 +10,45 @@
       </ul>
     </nav> -->
   </div>
-  <h3>Latest favorites...</h3>
+  <h3>View by Tags...</h3>
+  <div class="tags-wrap">
+    <a class="btn btn-default" href="#" role="button" *ngFor="let tag of tags">{{ tag }}</a>
+  </div>
+  <h3>Latest Favorites...</h3>
   <ul class="row favorites-list">
     <li class="col-lg-12" *ngFor="let favorite of favorites">
-      <h4><a href='{{ favorite.link }}' target="_blank">{{ favorite.title }}</a></h4>
-      <p>{{ favorite.description }}</p>
+      <p class="link">
+        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+        <a href='{{ favorite.url }}' target="_blank">{{ favorite.title }}</a>
+      </p>
+      <p class="tags">Tags: {{ favorite.tags }}</p>
     </li>
   </ul>
-  <h3>Add favorite...</h3>
-  <div class="form-group">
-    <label>title</label>
-    <input type="text" class="form-control">
-  </div>
-  <div class="form-group">
-    <label>url</label>
-    <input type="text" class="form-control">
-  </div>
-  <button type="submit" class="btn btn-primary pull-right">Submit</button>
+  <h3>Add Favorite...</h3>
+  <form class="form-horizontal" name="addFavoriteForm">
+    <div class="form-group">
+      <label for="inputTitle" class="col-sm-2 control-label">Title</label>
+      <div class="col-sm-10">
+        <input type="text" name="fav-title" class="form-control" id="inputTitle" placeholder="Article title" [(ngModel)]="newFavorite.title">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputUrl" class="col-sm-2 control-label">Url</label>
+      <div class="col-sm-10">
+        <input type="text" name="fav-url" class="form-control" id="inputUrl" placeholder="Url of the article" [(ngModel)]="newFavorite.url">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputTags" class="col-sm-2 control-label">Tags</label>
+      <div class="col-sm-10">
+        <input type="text" name="fav-tags" class="form-control" id="inputTags" [(ngModel)]="newFavorite.tags" placeholder="Keywords of the article, seperated by comma">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="button" class="btn btn-primary" (click)="addFavorite()">Submit</button>
+      </div>
+    </div>
+  </form>
 </div>
 <router-outlet></router-outlet>

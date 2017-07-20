@@ -5,6 +5,8 @@ import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class AppService {
+  lastId: number = 0;
+
   constructor(
     private api: ApiService
   ) { }
@@ -12,4 +14,16 @@ export class AppService {
   getAllFavorites(): Observable<Favorite[]> {
     return this.api.getAllFavorites();
   }
+
+  getAllTags(): Observable<string[]> {
+    return this.api.getAllTags();
+  }
+
+  addFavorite(favorite: Favorite): Observable<Favorite> {
+    return this.api.addFavorite(favorite);
+  }
+
+  addTag(tag: string): Observable<string> {
+    return this.api.addTag(tag);
+  } 
 }
