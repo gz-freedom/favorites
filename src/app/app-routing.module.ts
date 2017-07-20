@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { FavoriteDetailComponent } from './favorite-detail/favorite-detail.component';
+import { TagsListComponent } from "./tags-list/tags-list.component";
+import { TagDetailComponent } from "./tag-detail/tag-detail.component";
 
 const routes: Routes = [
   {
@@ -13,6 +15,14 @@ const routes: Routes = [
   {
     path: 'detail/:id',
     component: FavoriteDetailComponent
+  },
+  {
+    path: 'tags',
+    component: TagsListComponent
+  },
+  {
+    path: 'tag/:id',
+    component: TagDetailComponent
   }
 ];
 

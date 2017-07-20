@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { environment } from "environments/environment";
 import { Http } from "@angular/http";
 import { Favorite } from "./favorite";
+import { Tag } from "./tag";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
+import "rxjs/add/operator/concatMap";
 
 const API_URL = environment.apiUrl;
 
@@ -28,7 +30,7 @@ export class ApiService {
           });
   }
   
-  public getAllTags(): Observable<string[]> {
+  public getAllTags(): Observable<Tag[]> {
     return this.http.get(API_URL + "/tags")
         .map(response => {
           return response.json();
@@ -45,5 +47,20 @@ export class ApiService {
         .map(response => {
           return response.json();
         });
+  }
+
+  public getFavoritesByTag(tagName: string): Observable<Favorite[]> {
+    return this.http.get(API_URL + "/tags?name=" + tagName)
+            .concatMap(response => {
+              let articleIds = response.json()[0].articleIds;
+              let idsArray = [];
+              idsArray = articleIds.map(id => {
+                return "id=" + id;
+              });
+              let idsStr = "?" + idsArray.join("&");
+              return this.http.get(API_URL + "/favorites" + idsStr).map(res => {
+                return res.json();
+              });
+            });
   }
 }

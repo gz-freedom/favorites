@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Favorite } from "./favorite";
 import { ApiService } from "./api.service";
 import { Observable } from "rxjs/Observable";
+import { Tag } from "./tag";
 
 @Injectable()
 export class AppService {
@@ -15,7 +16,7 @@ export class AppService {
     return this.api.getAllFavorites();
   }
 
-  getAllTags(): Observable<string[]> {
+  getAllTags(): Observable<Tag[]> {
     return this.api.getAllTags();
   }
 
@@ -29,5 +30,9 @@ export class AppService {
 
   getFavoriteById(id: number): Observable<Favorite> {
     return this.api.getFavoriteById(id);
+  }
+
+  getFavoritesByTagName(tagName: string) {
+    return this.api.getFavoritesByTag(tagName);
   }
 }

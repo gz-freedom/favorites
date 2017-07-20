@@ -1,0 +1,9 @@
+<h3>View by Tags...</h3>
+<div class="tags-wrap">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let tag of tags" [routerLink]="['/tag', tag.id]">
+      <span class="badge">{{ tag.articleIds.length }}</span>
+      {{ tag.name }}
+    </li>
+  </ul>
+</div>

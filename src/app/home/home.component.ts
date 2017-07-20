@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Favorite } from "../Favorite";
+import { Favorite } from "../favorite";
 import { AppService } from "../app.service";
 
 @Component({
@@ -22,10 +22,6 @@ export class HomeComponent implements OnInit {
     this.appService.getAllFavorites()
         .subscribe(favorites => {
           this.favorites = favorites;
-        });
-    this.appService.getAllTags()
-        .subscribe(tags => {
-          this.tags = tags;
         });
   }
   

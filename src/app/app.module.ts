@@ -9,13 +9,17 @@ import { ApiService } from './api.service';
 import { ArrayToString } from './app.pipe';
 import { FavoriteDetailComponent } from './favorite-detail/favorite-detail.component';
 import { HomeComponent } from './home/home.component';
+import { TagsListComponent } from './tags-list/tags-list.component';
+import { TagDetailComponent } from './tag-detail/tag-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ArrayToString,
     FavoriteDetailComponent,
-    HomeComponent
+    HomeComponent,
+    TagsListComponent,
+    TagDetailComponent
   ],
   imports: [
     BrowserModule,
