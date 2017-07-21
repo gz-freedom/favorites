@@ -24,15 +24,19 @@ export class AppService {
     return this.api.addFavorite(favorite);
   }
 
-  addTag(tag: string): Observable<string> {
+  addTag(tag: Tag): Observable<Tag> {
     return this.api.addTag(tag);
+  }
+
+  updateTag(tag: Tag): Observable<Tag> {
+    return this.api.updateTag(tag);
   }
 
   getFavoriteById(id: number): Observable<Favorite> {
     return this.api.getFavoriteById(id);
   }
 
-  getFavoritesByTagName(tagName: string) {
-    return this.api.getFavoritesByTag(tagName);
+  getFavoritesByTagId(tagId: number) {
+    return this.api.getFavoritesByTagId(tagId);
   }
 }

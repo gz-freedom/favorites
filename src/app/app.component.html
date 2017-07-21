@@ -1,11 +1,10 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <div class="container">
   <div class="page-header">
     <h1>{{title}}</h1>
   </div>
   <nav>
     <ul class="nav nav-pills">
-      <li role="presentation" class="active"><a href="#">Home</a></li>
+      <li role="presentation" class="active"><a [routerLink]="['']">Home</a></li>
       <li role="presentation"><a [routerLink]="['/tags']">Tags</a></li>
     </ul>
   </nav>

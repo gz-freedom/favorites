@@ -47,22 +47,33 @@
     {
       "id": 0,
       "name": "ES6",
-      "articleIds": [0, 1]
+      "articleIds": [
+        0,
+        1
+      ]
     },
     {
       "id": 1,
       "name": "NodeJS",
-      "articleIds": [2, 3, 4]
+      "articleIds": [
+        2,
+        3,
+        4
+      ]
     },
     {
       "id": 2,
       "name": "TypeScript",
-      "articleIds": [5]
+      "articleIds": [
+        5
+      ]
     },
     {
       "id": 3,
       "name": "Angular2",
-      "articleIds": [5]
+      "articleIds": [
+        5
+      ]
     }
   ]
 }

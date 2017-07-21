@@ -37,9 +37,16 @@ export class ApiService {
         });
   }
   
-  public addTag(tag): Observable<string> {
-    return this.http.put(API_URL + "/tags", tag)
+  public addTag(tag: Tag): Observable<Tag> {
+    return this.http.post(API_URL + "/tags", tag)
         .map(response => response.json());
+  }
+
+  public updateTag(tag: Tag): Observable<Tag> {
+    return this.http.put(API_URL + "/tags/" + tag.id, tag)
+            .map(response => {
+              return response.json();
+            });
   }
 
   public getFavoriteById(id: number): Observable<Favorite> {
@@ -49,10 +56,10 @@ export class ApiService {
         });
   }
 
-  public getFavoritesByTag(tagName: string): Observable<Favorite[]> {
-    return this.http.get(API_URL + "/tags?name=" + tagName)
+  public getFavoritesByTagId(tagId: number): Observable<Favorite[]> {
+    return this.http.get(API_URL + "/tags/" + tagId)
             .concatMap(response => {
-              let articleIds = response.json()[0].articleIds;
+              let articleIds = response.json().articleIds;
               let idsArray = [];
               idsArray = articleIds.map(id => {
                 return "id=" + id;

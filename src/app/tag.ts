@@ -1,5 +1,9 @@
 export class Tag {
-    id: string;
+    id: number;
     name: string;
     articleIds: number[];
+
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
+    }
 }

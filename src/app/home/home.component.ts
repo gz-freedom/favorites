@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Favorite } from "../favorite";
+import { Tag } from "../tag";
 import { AppService } from "../app.service";
 
 @Component({
@@ -11,7 +12,7 @@ import { AppService } from "../app.service";
 export class HomeComponent implements OnInit {
 
   favorites: Favorite[] = [];
-  tags: string[] = [];
+  allTags: Tag[] = [];
   newFavorite: Favorite = new Favorite();
 
   constructor(
@@ -23,6 +24,10 @@ export class HomeComponent implements OnInit {
         .subscribe(favorites => {
           this.favorites = favorites;
         });
+    this.appService.getAllTags()
+        .subscribe(tags => {
+          this.allTags = tags;
+        });
   }
   
   addFavorite() {
@@ -32,12 +37,28 @@ export class HomeComponent implements OnInit {
         .subscribe(newFavorite => {
           this.favorites = this.favorites.concat(newFavorite);
         });
-    // check whether need to add tags
-    this.newFavorite.tags.split(",").forEach(tag => {
-      if(!this.tags.includes(tag.trim())) {
-        //this.appService.addTag(tag).subscribe(newTag => {
-          //this.tags = this.tags.concat(newTag);
-        //});
+    // add tags or update tag
+    this.newFavorite.tags.split(",").forEach(tagName => {
+      let isExist = false;
+      for(let i = 0, len = this.allTags.length; i < len; i++) {
+        let thisTag = this.allTags[i];
+        if(thisTag.name.toLowerCase() === tagName.trim().toLowerCase()) {
+          // exists, then update tag
+          thisTag.articleIds.push(this.newFavorite.id);
+          this.appService.updateTag(thisTag).subscribe(updatedTag => {
+            thisTag = updatedTag;
+          });
+          isExist = true;
+          break;
+        }
+      }
+      if(!isExist) {
+        let tag: Tag = new Tag({
+          id: this.allTags.length,
+          articleIds: [this.newFavorite.id],
+          name: tagName.trim()
+        });
+        this.appService.addTag(tag).subscribe(newTag => this.allTags.concat(newTag));
       }
     });
     

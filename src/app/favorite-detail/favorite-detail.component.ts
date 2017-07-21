@@ -11,7 +11,7 @@ import 'rxjs/add/operator/switchMap';
   providers: [AppService]
 })
 export class FavoriteDetailComponent implements OnInit {
-  favorite: Favorite;
+  favorite: Favorite = new Favorite();
   constructor(
     private api: AppService,
     private route: ActivatedRoute
@@ -21,7 +21,6 @@ export class FavoriteDetailComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => this.api.getFavoriteById(+params['id']))
       .subscribe(fav => {
-        console.dir(fav);
         this.favorite = fav;
       });
   }
