@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
+import { Location } from "@angular/common";
 import { Favorite } from "../favorite";
 import { AppService } from "../app.service";
 import 'rxjs/add/operator/switchMap';
@@ -14,7 +15,8 @@ export class FavoriteDetailComponent implements OnInit {
   favorite: Favorite = new Favorite();
   constructor(
     private api: AppService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -25,7 +27,9 @@ export class FavoriteDetailComponent implements OnInit {
       });
   }
 
-  deleteFavorite() {
+  deleteFavorite(id: number) {
     // todo
+    this.location.back();
+    this.api.deleteFavoriteById(id).subscribe();
   }
 }

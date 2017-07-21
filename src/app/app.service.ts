@@ -39,4 +39,8 @@ export class AppService {
   getFavoritesByTagId(tagId: number) {
     return this.api.getFavoritesByTagId(tagId);
   }
+
+  deleteFavoriteById(id: number) {
+    return this.api.deleteFavoriteById(id);
+  }
 }
