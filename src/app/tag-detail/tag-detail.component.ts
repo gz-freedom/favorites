@@ -12,17 +12,27 @@ import { Tag } from "../tag";
 })
 export class TagDetailComponent implements OnInit {
   favorites: Favorite[];
+  tagId: number;
+  tagName: string = '';
   constructor(
     private appService: AppService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.route.params.subscribe((params: Params) =>{
+      this.tagId = +params['id'];
+    });
+
     this.route.params
       .switchMap((params: Params) => this.appService.getFavoritesByTagId(+params['id']))
       .subscribe(res => {
         this.favorites = res;
       });
+    
+    this.appService.getTagById(this.tagId).subscribe(tag => {
+      this.tagName = tag.name;
+    });
   }
 
 }

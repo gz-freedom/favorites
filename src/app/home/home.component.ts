@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Favorite } from "../favorite";
-import { Tag } from "../tag";
 import { AppService } from "../app.service";
 
 @Component({
@@ -10,9 +9,8 @@ import { AppService } from "../app.service";
   providers: [AppService]
 })
 export class HomeComponent implements OnInit {
-
   favorites: Favorite[] = [];
-  allTags: Tag[] = [];
+  limitTo: number = 5;
 
   constructor(
     private appService: AppService
@@ -21,11 +19,11 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.appService.getAllFavorites()
         .subscribe(favorites => {
-          this.favorites = favorites;
-        });
-    this.appService.getAllTags()
-        .subscribe(tags => {
-          this.allTags = tags;
+          if(favorites.length > this.limitTo) {
+            this.favorites = favorites.slice(favorites.length - this.limitTo);
+          } else {
+            this.favorites = favorites;
+          }          
         });
   }
   

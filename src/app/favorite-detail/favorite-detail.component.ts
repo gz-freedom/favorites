@@ -29,7 +29,12 @@ export class FavoriteDetailComponent implements OnInit {
 
   deleteFavorite(id: number) {
     // todo
-    this.location.back();
-    this.api.deleteFavoriteById(id).subscribe();
+    this.api.deleteFavoriteById(id).subscribe(res => {
+      this.location.back();
+    });
+  }
+  markAsRead(favorite: Favorite) {
+    favorite.read = !favorite.read;
+    this.api.updateFavorite(favorite).subscribe();
   }
 }

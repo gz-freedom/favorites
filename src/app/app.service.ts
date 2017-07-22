@@ -43,4 +43,12 @@ export class AppService {
   deleteFavoriteById(id: number) {
     return this.api.deleteFavoriteById(id);
   }
+
+  updateFavorite(fav: Favorite) {
+    return this.api.updateFavorite(fav);
+  }
+
+  getTagById(id: number): Observable<Tag> {
+    return this.api.getTagById(id);
+  }
 }

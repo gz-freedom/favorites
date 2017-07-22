@@ -15,12 +15,16 @@
   </div>
   <div class="btn-group pull-center">
     <button class="btn btn-danger" (click)="deleteFavorite(favorite.id)">
-      <span class="glyphicon glyphicon-exclamation-sign"></span>
+      <span class="glyphicon glyphicon-warning-sign"></span>
       Delete Favorite
     </button>
-    <button class="btn btn-info" *ngIf="!favorite.read">
-      <span class="glyphicon glyphicon-star"></span>
+    <button class="btn btn-info" *ngIf="!favorite.read" (click)="markAsRead(favorite)">
+      <span class="glyphicon glyphicon-eye-open"></span>
       Mark as Read
+    </button>
+    <button class="btn btn-default" *ngIf="favorite.read" disabled="disabled">
+      <span class="glyphicon glyphicon-check"></span>
+      Already Read
     </button>
   </div>
 </div>

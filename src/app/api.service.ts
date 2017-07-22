@@ -73,23 +73,35 @@ export class ApiService {
 
   public deleteFavoriteById(id: number) {
     return this.http.delete(API_URL + "/favorites/" + id)
-            .concatMap(response => {
-              return this.http.get(API_URL + "/tags")
-                .concatMap(res => {
-                  res.json().forEach(tag => {
-                    if(tag.articleIds.includes(id)) {
-                      tag.articleIds.splice(tag.articleIds.indexOf(id), 1);
-                      if(tag.articleIds.length === 0) {
-                        // delete tag
-                        return this.http.delete(API_URL + "/tags/" + tag.id).map(response => null).subscribe();
-                      } else {
-                        // update tag
-                        return this.http.put(API_URL + "/tags/" + tag.id, tag).map(response => response.json()).subscribe();
-                      }
-                    }
-                  });
-                  return res.json();
-                });
+      .concatMap(response => {
+        return this.http.get(API_URL + "/tags")
+          .concatMap(res => {
+            res.json().forEach(tag => {
+              if(tag.articleIds.includes(id)) {
+                tag.articleIds.splice(tag.articleIds.indexOf(id), 1);
+                if(tag.articleIds.length === 0) {
+                  // delete tag
+                  return this.http.delete(API_URL + "/tags/" + tag.id).map(response => null).subscribe();
+                } else {
+                  // update tag
+                  return this.http.put(API_URL + "/tags/" + tag.id, tag).map(response => response.json()).subscribe();
+                }
+              }
             });
+            return res.json();
+          });
+      });
+  }
+
+  public updateFavorite(fav: Favorite) {
+    return this.http.put(API_URL + "/favorites/" + fav.id, fav)
+      .map(res => res.json());
+  }
+
+  public getTagById(id: number): Observable<Tag> {
+    return this.http.get(API_URL + "/tags/" + id)
+      .map(res => {
+        return res.json();
+      });
   }
 }

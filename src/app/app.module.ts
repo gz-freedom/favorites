@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { TagsListComponent } from './tags-list/tags-list.component';
 import { TagDetailComponent } from './tag-detail/tag-detail.component';
 import { AddFavoriteComponent } from './add-favorite/add-favorite.component';
+import { FavoritesListComponent } from './favorites-list/favorites-list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AddFavoriteComponent } from './add-favorite/add-favorite.component';
     HomeComponent,
     TagsListComponent,
     TagDetailComponent,
-    AddFavoriteComponent
+    AddFavoriteComponent,
+    FavoritesListComponent
   ],
   imports: [
     BrowserModule,

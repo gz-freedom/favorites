@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Favorite } from "../favorite";
 import { Tag } from "../tag";
 import { AppService } from "../app.service";
@@ -9,16 +9,23 @@ import { AppService } from "../app.service";
   styleUrls: ['./add-favorite.component.scss']
 })
 
-export class AddFavoriteComponent {
+export class AddFavoriteComponent implements OnInit {
   newFavorite: Favorite = new Favorite();
   @Input() favorites: Favorite[] = [];
-  @Input() allTags: Tag[] = [];
+  allTags: Tag[] = [];
 
   @Output() onAddFavorite = new EventEmitter<Favorite>();
 
   constructor(
     private appService: AppService
   ) { }
+
+  ngOnInit() {
+    this.appService.getAllTags()
+        .subscribe(tags => {
+          this.allTags = tags;
+        });
+  }
 
   addFavorite() {
     this.newFavorite.id = this.favorites[this.favorites.length - 1].id + 1;
