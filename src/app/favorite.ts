@@ -5,6 +5,7 @@ export class Favorite {
     tags: string;
     description?: string;
     read: boolean;
+    linked?: number[];
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

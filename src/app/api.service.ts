@@ -94,6 +94,7 @@ export class ApiService {
   }
 
   public updateFavorite(fav: Favorite) {
+    console.dir(fav);
     return this.http.put(API_URL + "/favorites/" + fav.id, fav)
       .map(res => res.json());
   }

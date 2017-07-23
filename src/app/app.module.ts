@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { ApiService } from './api.service';
 import { ArrayToString } from './app.pipe';
 import { FavoriteDetailComponent } from './favorite-detail/favorite-detail.component';
-import { HomeComponent } from './home/home.component';
 import { TagsListComponent } from './tags-list/tags-list.component';
 import { TagDetailComponent } from './tag-detail/tag-detail.component';
 import { AddFavoriteComponent } from './add-favorite/add-favorite.component';
@@ -19,7 +18,6 @@ import { FavoritesListComponent } from './favorites-list/favorites-list.componen
     AppComponent,
     ArrayToString,
     FavoriteDetailComponent,
-    HomeComponent,
     TagsListComponent,
     TagDetailComponent,
     AddFavoriteComponent,

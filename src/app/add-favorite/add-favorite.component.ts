@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, ElementRef } from '@angular/core';
 import { Favorite } from "../favorite";
 import { Tag } from "../tag";
 import { AppService } from "../app.service";
@@ -6,34 +6,56 @@ import { AppService } from "../app.service";
 @Component({
   selector: 'app-add-favorite',
   templateUrl: './add-favorite.component.html',
-  styleUrls: ['./add-favorite.component.scss']
+  styleUrls: ['./add-favorite.component.scss'],
+  providers: [AppService]
 })
 
 export class AddFavoriteComponent implements OnInit {
   newFavorite: Favorite = new Favorite();
-  @Input() favorites: Favorite[] = [];
+  favorites: Favorite[] = [];
   allTags: Tag[] = [];
-
-  @Output() onAddFavorite = new EventEmitter<Favorite>();
+  searchKeyword: string = "";
+  matchedFavorites: Favorite[] = [];
+  selectedFavorites: Favorite[] =[];
+  allCheckBoxes: HTMLInputElement[];
+  linkedFavorites: number[] = [];
 
   constructor(
-    private appService: AppService
+    private appService: AppService,
+    private elementRef: ElementRef
   ) { }
 
   ngOnInit() {
+    this.appService.getAllFavorites()
+      .subscribe(favorites => this.favorites = favorites);
     this.appService.getAllTags()
-        .subscribe(tags => {
-          this.allTags = tags;
-        });
+      .subscribe(tags => {
+        this.allTags = tags;
+      });
   }
 
   addFavorite() {
     this.newFavorite.id = this.favorites[this.favorites.length - 1].id + 1;
     this.newFavorite.read = false;
+    this.selectedFavorites.forEach(fav => {
+      this.linkedFavorites.push(fav.id);
+    });
+    this.linkedFavorites.push(this.newFavorite.id);
+    this.newFavorite.linked = this.linkedFavorites;
+    console.dir(this.newFavorite);
+
+    // need to update other linked favorites' linked property
+    this.selectedFavorites.forEach(fav => {
+
+      fav.linked = this.linkedFavorites;
+      console.log(fav);
+      this.appService.updateFavorite(fav);
+    });
+
     this.appService.addFavorite(this.newFavorite)
-        .subscribe(newFavorite => {
-          this.onAddFavorite.emit(newFavorite);
-        });
+      .subscribe(newFavorite => {
+        this.favorites.concat(newFavorite);
+      });
     // add tags or update tag
     this.newFavorite.tags.split(",").forEach(tagName => {
       let isExist = false;
@@ -60,6 +82,45 @@ export class AddFavoriteComponent implements OnInit {
     });
     
     this.newFavorite = new Favorite();
+    this.searchKeyword = "";
+    this.selectedFavorites.length = 0;
+    this.matchedFavorites.length = 0;
   }
 
+  onKeyUpSearchFavorite() {
+    this.appService.getAllFavorites()
+      .subscribe(favorites => {
+        this.matchedFavorites.length = 0;
+        if(this.searchKeyword === "") { return; }
+        favorites.forEach(fav => {
+          if(fav.title.toLowerCase().includes(this.searchKeyword.toLowerCase())) {
+            this.matchedFavorites.push(fav);
+          }
+        });
+      });
+  }
+  
+  selectMatchedFavorite(event: Event, fav: Favorite) {
+    let inputTarget = <HTMLInputElement>event.target;
+    if(inputTarget.checked) {
+      this.selectedFavorites.push(fav);
+    } else {
+      this.selectedFavorites = this.selectedFavorites.filter(selectedFav => {
+        return selectedFav.id !== fav.id;
+      });
+    }
+  }
+
+  removeSelectedFavorite(favId: number) {
+    let idx = this.selectedFavorites.findIndex(fav => {
+      return fav.id === favId;
+    });
+    this.selectedFavorites.splice(idx, 1);
+    this.allCheckBoxes = this.elementRef.nativeElement.querySelectorAll(".fav-checkbox");
+    this.allCheckBoxes.forEach(checkbox => {
+      if(+checkbox.value === favId) {
+        checkbox.checked = false;
+      }
+    });
+  }
 }
