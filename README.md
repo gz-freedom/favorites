@@ -5,6 +5,6 @@
 
 简单的添加标题，链接还有标签，加入关联的文档，不过后期可能会做成Collection的形式。
 
-使用Angular CLI来开发，感觉非常方便，请[参考这篇文章]:<https://www.sitepoint.com/ultimate-angular-cli-reference/>
+使用Angular CLI来开发，感觉非常方便，请[参考这篇文章](https://www.sitepoint.com/ultimate-angular-cli-reference/)
 
-使用[json server]:<https://github.com/typicode/json-server>来做后端
+使用[json server](https://github.com/typicode/json-server)来做后端
