@@ -40,7 +40,52 @@
       "title": "The Ultimate Angular CLI Reference Guide",
       "tags": "Angular2, TypeScript",
       "read": false,
-      "id": 5
+      "id": 5,
+      "linked": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "url": "https://www.sitepoint.com/angular-2-tutorial/",
+      "title": "Angular 2 Tutorial: Create a CRUD App with Angular CLI",
+      "tags": "Angular2, TypeScript",
+      "id": 6,
+      "read": false,
+      "linked": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "url": "https://www.sitepoint.com/understanding-component-architecture-angular/",
+      "title": "Understanding Component Architecture: Refactoring an Angular App",
+      "tags": "Angular2, TypeScript",
+      "id": 7,
+      "read": false,
+      "linked": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "url": "https://www.sitepoint.com/angular-rxjs-create-api-service-rest-backend/",
+      "title": "Angular and RxJS: Create an API Service to Talk to a REST Backend",
+      "tags": "Angular2, TypeScript",
+      "id": 8,
+      "read": false,
+      "linked": [
+        5,
+        6,
+        7,
+        8
+      ]
     }
   ],
   "tags": [
@@ -65,14 +110,20 @@
       "id": 2,
       "name": "TypeScript",
       "articleIds": [
-        5
+        5,
+        6,
+        7,
+        8
       ]
     },
     {
       "id": 3,
       "name": "Angular2",
       "articleIds": [
-        5
+        5,
+        6,
+        7,
+        8
       ]
     }
   ]

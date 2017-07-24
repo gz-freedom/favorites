@@ -42,14 +42,12 @@ export class AddFavoriteComponent implements OnInit {
     });
     this.linkedFavorites.push(this.newFavorite.id);
     this.newFavorite.linked = this.linkedFavorites;
-    console.dir(this.newFavorite);
 
     // need to update other linked favorites' linked property
     this.selectedFavorites.forEach(fav => {
 
       fav.linked = this.linkedFavorites;
-      console.log(fav);
-      this.appService.updateFavorite(fav);
+      this.appService.updateFavorite(fav).subscribe();
     });
 
     this.appService.addFavorite(this.newFavorite)
