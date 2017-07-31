@@ -3,7 +3,6 @@ export class Favorite {
     title: string;
     url: string;
     tags: string;
-    description?: string;
     read: boolean;
     linked?: number[];
 

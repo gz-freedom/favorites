@@ -4,9 +4,9 @@
   </div>
   <nav>
     <ul class="nav nav-pills">
-      <li role="presentation" class="active"><a routerLink="">Home</a></li>
-      <li role="presentation"><a routerLink="/favorites">All Favorites</a></li>
-      <li role="presentation"><a routerLink="/tags">Tags</a></li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/">Home</a></li>
+      <li [routerLinkActive]="['active']"><a routerLink="/favorites">All Favorites</a></li>
+      <li [routerLinkActive]="['active']"><a routerLink="/tags">Tags</a></li>
     </ul>
   </nav>
   <router-outlet></router-outlet>

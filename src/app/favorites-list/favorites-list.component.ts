@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from "@angular/platform-browser";
 import { Favorite } from "../favorite";
 import { AppService } from "../app.service";
 
@@ -11,14 +12,24 @@ import { AppService } from "../app.service";
 export class FavoritesListComponent implements OnInit {
   favorites: Favorite[] = [];
   constructor(
-    private appService: AppService
+    private appService: AppService,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle("Favorites");
     this.appService.getAllFavorites()
       .subscribe(favorites => {
           this.favorites = favorites;
         });
   }
 
+  deleteFavorite(id: number) {
+    // todo
+    this.appService.deleteFavoriteById(id).subscribe();
+  }
+  markAsRead(favorite: Favorite) {
+    favorite.read = !favorite.read;
+    this.appService.updateFavorite(favorite).subscribe();
+  }
 }

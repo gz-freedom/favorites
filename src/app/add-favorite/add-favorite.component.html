@@ -30,7 +30,7 @@
     </div>
   </div>
   <div class="form-group">
-    <h5 class="col-sm-12 text-info">Searchto Add Linked Favorites:</h5>
+    <h5 class="col-sm-12 text-info">Search to Add Linked Favorites:</h5>
     <div class="col-sm-12">
       <input type="text" class="form-control" name="keyword" id="inputAutoMatch" placeholder="please search favorites to add" [(ngModel)]="searchKeyword" (keyup)="onKeyUpSearchFavorite(this)">
       <ul class="list-group matched-favorites" *ngIf="matchedFavorites.length > 0">

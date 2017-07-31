@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
+import { Title } from "@angular/platform-browser";
 import { AppService } from "../app.service";
 import { Favorite } from "../favorite";
 import { Tag } from "../tag";
+import "rxjs/add/operator/switchMap";
 
 @Component({
   selector: 'app-tag-detail',
@@ -16,7 +18,8 @@ export class TagDetailComponent implements OnInit {
   tagName: string = '';
   constructor(
     private appService: AppService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
@@ -32,7 +35,16 @@ export class TagDetailComponent implements OnInit {
     
     this.appService.getTagById(this.tagId).subscribe(tag => {
       this.tagName = tag.name;
+      this.titleService.setTitle("Tag: " + tag.name);
     });
   }
 
+  deleteFavorite(id: number) {
+    // todo
+    this.appService.deleteFavoriteById(id).subscribe();
+  }
+  markAsRead(favorite: Favorite) {
+    favorite.read = !favorite.read;
+    this.appService.updateFavorite(favorite).subscribe();
+  }
 }

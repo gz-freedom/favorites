@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from "@angular/router";
 import { AppService } from "./app.service";
 
 @Component({
@@ -8,4 +9,7 @@ import { AppService } from "./app.service";
 })
 export class AppComponent {
   title = 'My Favorites';
+  constructor(
+    private router: Router
+  ) {}
 }

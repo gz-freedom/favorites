@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from "@angular/platform-browser";
 import { AppService } from "../app.service";
 import { Tag } from "../tag";
 
@@ -11,7 +12,8 @@ import { Tag } from "../tag";
 export class TagsListComponent implements OnInit {
   tags: Tag[] = [];
   constructor(
-    private appService: AppService
+    private appService: AppService,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
@@ -19,6 +21,6 @@ export class TagsListComponent implements OnInit {
         .subscribe(tags => {
           this.tags = tags;
         });
+    this.titleService.setTitle("Tags");
   }
-
 }

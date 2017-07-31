@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, ElementRef } from '@angular/core';
+import { Title } from "@angular/platform-browser";
 import { Favorite } from "../favorite";
 import { Tag } from "../tag";
 import { AppService } from "../app.service";
@@ -22,7 +23,8 @@ export class AddFavoriteComponent implements OnInit {
 
   constructor(
     private appService: AppService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
@@ -32,6 +34,7 @@ export class AddFavoriteComponent implements OnInit {
       .subscribe(tags => {
         this.allTags = tags;
       });
+    this.titleService.setTitle("Add Favorite");
   }
 
   addFavorite() {
