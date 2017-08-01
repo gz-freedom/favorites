@@ -1,43 +1,40 @@
 <h3>Add Favorite</h3>
 <form class="form-horizontal" name="addFavoriteForm">
   <div class="form-group">
-    <label for="inputTitle" class="col-sm-3 control-label">Title</label>
-    <div class="col-sm-9">
+    <label for="inputTitle" class="col-sm-2 control-label">Title</label>
+    <div class="col-sm-10">
       <input type="text" name="fav-title" class="form-control" id="inputTitle" placeholder="Article title" [(ngModel)]="newFavorite.title">
     </div>
   </div>
   <div class="form-group">
-    <label for="inputUrl" class="col-sm-3 control-label">Url</label>
-    <div class="col-sm-9">
+    <label for="inputUrl" class="col-sm-2 control-label">Url</label>
+    <div class="col-sm-10">
       <input type="text" name="fav-url" class="form-control" id="inputUrl" placeholder="Url of the article" [(ngModel)]="newFavorite.url">
     </div>
   </div>
   <div class="form-group">
-    <label for="inputTags" class="col-sm-3 control-label">Tags</label>
-    <div class="col-sm-9">
+    <label for="inputTags" class="col-sm-2 control-label">Tags</label>
+    <div class="col-sm-10">
       <input type="text" name="fav-tags" class="form-control" id="inputTags" [(ngModel)]="newFavorite.tags" placeholder="Keywords of the article, seperated by comma">
     </div>
   </div>
-  <div class="form-group" *ngIf="selectedFavorites.length > 0">
-    <h5 class="col-sm-12 text-info">Linked Favorites:</h5>
-    <div class="col-sm-12">
-      <ul class="list-group linked-favorites">
-        <li *ngFor="let fav of selectedFavorites" class="list-group-item list-group-item-success">
-          <span class="glyphicon glyphicon-remove" (click)="removeSelectedFavorite(fav.id)"></span>
-          {{ fav.title }}
-        </li>
-      </ul>
+  <div class="form-group" *ngIf="collections.length > 0">
+    <label for="selectCollection" class="col-sm-2 control-label">Collection</label>
+    <div class="col-sm-10">
+      <select class="form-control" id="selectCollection">
+        <option>Please Select a Collection</option>
+        <option *ngFor="let collection of collections" value="{{ collection.id }}">{{ collection.name }}</option>
+      </select>
     </div>
   </div>
   <div class="form-group">
-    <h5 class="col-sm-12 text-info">Search to Add Linked Favorites:</h5>
     <div class="col-sm-12">
-      <input type="text" class="form-control" name="keyword" id="inputAutoMatch" placeholder="please search favorites to add" [(ngModel)]="searchKeyword" (keyup)="onKeyUpSearchFavorite(this)">
-      <ul class="list-group matched-favorites" *ngIf="matchedFavorites.length > 0">
-        <li class="list-group-item" *ngFor="let fav of matchedFavorites">
-          <label><input type="checkbox" class="fav-checkbox" (click)="selectMatchedFavorite($event, fav)" value="{{fav.id}}"> {{ fav.title }}</label>
-        </li>
-      </ul>
+      <div class="input-group">
+        <input type="text" class="form-control" name="collection-name" [(ngModel)]="newCollection.name" placeholder="Optional...">
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-default" (click)="addCollection()">Add Collection</button>
+        </div>
+      </div>
     </div>
   </div>
   <div class="form-group">

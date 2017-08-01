@@ -3,6 +3,7 @@ import { Favorite } from "./favorite";
 import { ApiService } from "./api.service";
 import { Observable } from "rxjs/Observable";
 import { Tag } from "./tag";
+import { Collection } from "./collection";
 
 @Injectable()
 export class AppService {
@@ -32,10 +33,6 @@ export class AppService {
     return this.api.updateTag(tag);
   }
 
-  getFavoriteById(id: number): Observable<Favorite> {
-    return this.api.getFavoriteById(id);
-  }
-
   getFavoritesByTagId(tagId: number) {
     return this.api.getFavoritesByTagId(tagId);
   }
@@ -50,5 +47,12 @@ export class AppService {
 
   getTagById(id: number): Observable<Tag> {
     return this.api.getTagById(id);
+  }
+
+  getCollections(): Observable<Collection[]> {
+    return this.api.getCollections();
+  }
+  addCollection(collection: Collection): Observable<Collection> {
+    return this.api.addCollection(collection);
   }
 }

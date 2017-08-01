@@ -5,6 +5,7 @@ import { AddFavoriteComponent } from "./add-favorite/add-favorite.component";
 import { FavoritesListComponent } from "./favorites-list/favorites-list.component";
 import { TagsListComponent } from "./tags-list/tags-list.component";
 import { TagDetailComponent } from "./tag-detail/tag-detail.component";
+import { CollectionsComponent } from "./collections/collections.component";
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'favorites',
     component: FavoritesListComponent
+  },
+  {
+    path: 'collections',
+    component: CollectionsComponent
   },
   {
     path: 'tags',

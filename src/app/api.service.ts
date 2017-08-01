@@ -3,6 +3,7 @@ import { environment } from "environments/environment";
 import { Http } from "@angular/http";
 import { Favorite } from "./favorite";
 import { Tag } from "./tag";
+import { Collection } from "./collection";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/concatMap";
@@ -47,13 +48,6 @@ export class ApiService {
             .map(response => {
               return response.json();
             });
-  }
-
-  public getFavoriteById(id: number): Observable<Favorite> {
-    return this.http.get(API_URL + "/favorites/" + id)
-        .map(response => {
-          return response.json();
-        });
   }
 
   public getFavoritesByTagId(tagId: number): Observable<Favorite[]> {
@@ -103,5 +97,17 @@ export class ApiService {
       .map(res => {
         return res.json();
       });
+  }
+
+  public getCollections(): Observable<Collection[]> {
+    return this.http.get(API_URL + "/collections/")
+      .map(res => {
+        return res.json();
+      });
+  }
+
+  public addCollection(collection: Collection): Observable<Collection> {
+    return this.http.post(API_URL + "/collections/", collection)
+      .map(collection => collection.json());
   }
 }
