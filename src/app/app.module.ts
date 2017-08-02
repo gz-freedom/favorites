@@ -12,6 +12,7 @@ import { TagDetailComponent } from './tag-detail/tag-detail.component';
 import { AddFavoriteComponent } from './add-favorite/add-favorite.component';
 import { FavoritesListComponent } from './favorites-list/favorites-list.component';
 import { CollectionsComponent } from './collections/collections.component';
+import { CollectionDetailComponent } from "./collections/collection-detail.component";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CollectionsComponent } from './collections/collections.component';
     TagDetailComponent,
     AddFavoriteComponent,
     FavoritesListComponent,
-    CollectionsComponent
+    CollectionsComponent,
+    CollectionDetailComponent
   ],
   imports: [
     BrowserModule,

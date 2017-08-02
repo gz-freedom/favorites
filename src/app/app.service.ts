@@ -16,6 +16,12 @@ export class AppService {
   getAllFavorites(): Observable<Favorite[]> {
     return this.api.getAllFavorites();
   }
+  getFavoritesByTagId(tagId: number) {
+    return this.api.getTagById(tagId).concatMap(tag => this.api.getFavoritesByIds(tag.articleIds));
+  }
+  getFavoritesByCollectionId(collectionId: number) {
+    return this.api.getCollectionById(collectionId).concatMap(collection => this.api.getFavoritesByIds(collection.articleIds));
+  }
 
   getAllTags(): Observable<Tag[]> {
     return this.api.getAllTags();
@@ -31,10 +37,6 @@ export class AppService {
 
   updateTag(tag: Tag): Observable<Tag> {
     return this.api.updateTag(tag);
-  }
-
-  getFavoritesByTagId(tagId: number) {
-    return this.api.getFavoritesByTagId(tagId);
   }
 
   deleteFavoriteById(id: number) {
@@ -54,5 +56,8 @@ export class AppService {
   }
   addCollection(collection: Collection): Observable<Collection> {
     return this.api.addCollection(collection);
+  }
+  getCollectionById(collectionId: number): Observable<Collection> {
+    return this.api.getCollectionById(collectionId);
   }
 }

@@ -23,6 +23,12 @@ export class ApiService {
           return response.json();
         });
   }
+
+  public getFavoritesByIds(ids: number[]): Observable<Favorite[]> {
+    let idsArray = ids.map(id => "id=" + id);
+    let idsStr = "?" + idsArray.join("&");
+    return this.http.get(API_URL + "/favorites/" + idsStr).map(res => res.json());
+  }
   
   public addFavorite(favorite: Favorite): Observable<Favorite> {
     return this.http.post(API_URL + "/favorites", favorite)
@@ -47,21 +53,6 @@ export class ApiService {
     return this.http.put(API_URL + "/tags/" + tag.id, tag)
             .map(response => {
               return response.json();
-            });
-  }
-
-  public getFavoritesByTagId(tagId: number): Observable<Favorite[]> {
-    return this.http.get(API_URL + "/tags/" + tagId)
-            .concatMap(response => {
-              let articleIds = response.json().articleIds;
-              let idsArray = [];
-              idsArray = articleIds.map(id => {
-                return "id=" + id;
-              });
-              let idsStr = "?" + idsArray.join("&");
-              return this.http.get(API_URL + "/favorites" + idsStr).map(res => {
-                return res.json();
-              });
             });
   }
 
@@ -108,6 +99,11 @@ export class ApiService {
 
   public addCollection(collection: Collection): Observable<Collection> {
     return this.http.post(API_URL + "/collections/", collection)
+      .map(collection => collection.json());
+  }
+  
+  public getCollectionById(id: number): Observable<Collection> {
+    return this.http.get(API_URL + "/collections/" + id)
       .map(collection => collection.json());
   }
 }

@@ -6,6 +6,7 @@ import { FavoritesListComponent } from "./favorites-list/favorites-list.componen
 import { TagsListComponent } from "./tags-list/tags-list.component";
 import { TagDetailComponent } from "./tag-detail/tag-detail.component";
 import { CollectionsComponent } from "./collections/collections.component";
+import { CollectionDetailComponent } from "./collections/collection-detail.component";
 
 const routes: Routes = [
   {
@@ -21,11 +22,15 @@ const routes: Routes = [
     component: CollectionsComponent
   },
   {
+    path: 'collections/:id',
+    component: CollectionDetailComponent
+  },
+  {
     path: 'tags',
     component: TagsListComponent
   },
   {
-    path: 'tag/:id',
+    path: 'tags/:id',
     component: TagDetailComponent
   }
 ];

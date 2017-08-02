@@ -106,7 +106,12 @@
   "collections": [
     {
       "name": "Create a Todo Application using Angular CLI",
-      "articleIds": [],
+      "articleIds": [
+        6,
+        7,
+        8,
+        9
+      ],
       "id": 1
     }
   ]
