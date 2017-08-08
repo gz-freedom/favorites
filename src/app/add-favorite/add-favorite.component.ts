@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { Favorite } from "../favorite";
 import { Tag } from "../tag";
@@ -18,11 +19,20 @@ export class AddFavoriteComponent implements OnInit {
   allTags: Tag[] = [];
   newCollection: Collection = new Collection();
   collections: Collection[] = [];
+  addForm: FormGroup
 
   constructor(
     private appService: AppService,
-    private titleService: Title
-  ) { }
+    private titleService: Title,
+    fb: FormBuilder
+  ) {
+    this.addForm = fb.group({
+      "favTitle": [null, Validators.required],
+      "favUrl": [null, Validators.required],
+      "favTags": [null, Validators.required],
+      favCollection: 0
+    });
+  }
 
   ngOnInit() {
     this.appService.getAllFavorites()
@@ -40,12 +50,15 @@ export class AddFavoriteComponent implements OnInit {
 
   addFavorite() {
     this.newFavorite.read = false;
-
+    this.newFavorite.title = this.addForm.value.favTitle;
+    this.newFavorite.url = this.addForm.value.favUrl;
+    this.newFavorite.tags = this.addForm.value.favTags;
     this.appService.addFavorite(this.newFavorite)
       .subscribe(newFavorite => {
         this.favorites.concat(newFavorite);
       });
-    // add tags or update tag
+
+    //add tags or update tag
     this.newFavorite.tags.split(",").forEach(tagName => {
       let isExist = false;
       for(let i = 0, len = this.allTags.length; i < len; i++) {
@@ -62,8 +75,7 @@ export class AddFavoriteComponent implements OnInit {
       }
       if(!isExist) {
         let tag: Tag = new Tag({
-          id: this.allTags.length,
-          articleIds: [this.newFavorite.id],
+          articleIds: [1],
           name: tagName.trim()
         });
         this.appService.addTag(tag).subscribe(newTag => {
@@ -72,7 +84,7 @@ export class AddFavoriteComponent implements OnInit {
       }
     });
     
-    this.newFavorite = new Favorite();
+    this.addForm.reset();
   }
 
   addCollection() {

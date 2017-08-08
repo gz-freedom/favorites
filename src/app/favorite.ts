@@ -4,7 +4,7 @@ export class Favorite {
     url: string;
     tags: string;
     read: boolean;
-    collection?: number[];
+    collection?: number;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

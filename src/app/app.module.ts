@@ -1,5 +1,5 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgModule } from '@angular/core';
 import { HttpModule } from "@angular/http";
 
@@ -29,6 +29,7 @@ import { CollectionDetailComponent } from "./collections/collection-detail.compo
     BrowserModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [ApiService, Title],
