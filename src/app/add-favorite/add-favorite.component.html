@@ -33,7 +33,7 @@
   <div class="form-group">
     <div class="col-sm-12">
       <div class="input-group">
-        <input type="text" class="form-control" name="collection-name" placeholder="Optional...">
+        <input type="text" class="form-control" name="collection-name" placeholder="Optional..." [(ngModel)]="newCollection.name" [ngModelOptions]="{ standalone: true }">
         <div class="input-group-btn">
           <button type="button" class="btn btn-default" (click)="addCollection()">Add Collection</button>
         </div>
