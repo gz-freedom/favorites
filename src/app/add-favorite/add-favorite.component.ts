@@ -14,12 +14,12 @@ import { AppService } from "../app.service";
 })
 
 export class AddFavoriteComponent implements OnInit {
-  newFavorite: Favorite = new Favorite();
   favorites: Favorite[] = [];
   allTags: Tag[] = [];
   newCollection: Collection = new Collection();
   collections: Collection[] = [];
-  addForm: FormGroup
+  addForm: FormGroup;
+  selectedCollectionId: number = 0;
 
   constructor(
     private appService: AppService,
@@ -29,8 +29,7 @@ export class AddFavoriteComponent implements OnInit {
     this.addForm = fb.group({
       "favTitle": [null, Validators.required],
       "favUrl": [null, Validators.required],
-      "favTags": [null, Validators.required],
-      favCollection: 0
+      "favTags": [null, Validators.required]
     });
   }
 
@@ -49,42 +48,50 @@ export class AddFavoriteComponent implements OnInit {
   }
 
   addFavorite() {
-    this.newFavorite.read = false;
-    this.newFavorite.title = this.addForm.value.favTitle;
-    this.newFavorite.url = this.addForm.value.favUrl;
-    this.newFavorite.tags = this.addForm.value.favTags;
-    this.appService.addFavorite(this.newFavorite)
-      .subscribe(newFavorite => {
-        this.favorites.concat(newFavorite);
-      });
-
-    //add tags or update tag
-    this.newFavorite.tags.split(",").forEach(tagName => {
-      let isExist = false;
-      for(let i = 0, len = this.allTags.length; i < len; i++) {
-        let thisTag = this.allTags[i];
-        if(thisTag.name.toLowerCase() === tagName.trim().toLowerCase()) {
-          // exists, then update tag
-          thisTag.articleIds.push(this.newFavorite.id);
-          this.appService.updateTag(thisTag).subscribe(updatedTag => {
-            thisTag = updatedTag;
-          });
-          isExist = true;
-          break;
-        }
-      }
-      if(!isExist) {
-        let tag: Tag = new Tag({
-          articleIds: [1],
-          name: tagName.trim()
-        });
-        this.appService.addTag(tag).subscribe(newTag => {
-          location.reload();
-        });
-      }
+    let newFavorite = new Favorite({
+      read: false,
+      title: this.addForm.value.favTitle,
+      url: this.addForm.value.favUrl,
+      tags: this.addForm.value.favTags
     });
-    
-    this.addForm.reset();
+    this.appService.addFavorite(newFavorite)
+      .subscribe(newFav => {
+        this.favorites.concat(newFav);
+
+        // update collection if select any
+        if(this.selectedCollectionId) {
+          let selectedCollection = this.collections.filter(collection => collection.id === +this.selectedCollectionId).pop();
+          selectedCollection.articleIds.push(newFav.id);
+          this.appService.updateCollection(selectedCollection).subscribe();
+        }
+
+        //add tags or update tag
+        newFav.tags.split(",").forEach(tagName => {
+          let isExist = false;
+          for(let i = 0, len = this.allTags.length; i < len; i++) {
+            let thisTag = this.allTags[i];
+            if(thisTag.name.toLowerCase() === tagName.trim().toLowerCase()) {
+              // exists, then update tag
+              thisTag.articleIds.push(newFav.id);
+              this.appService.updateTag(thisTag).subscribe(updatedTag => {
+                thisTag = updatedTag;
+              });
+              isExist = true;
+              break;
+            }
+          }
+          if(!isExist) {
+            let tag: Tag = new Tag({
+              articleIds: [newFav.id],
+              name: tagName.trim()
+            });
+            this.appService.addTag(tag).subscribe();
+          }
+        });
+        
+        this.addForm.reset();
+        this.selectedCollectionId = 0;
+      });
   }
 
   addCollection() {

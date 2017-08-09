@@ -60,4 +60,7 @@ export class AppService {
   getCollectionById(collectionId: number): Observable<Collection> {
     return this.api.getCollectionById(collectionId);
   }
+  updateCollection(collection: Collection): Observable<Collection> {
+    return this.api.updateCollection(collection);
+  }
 }

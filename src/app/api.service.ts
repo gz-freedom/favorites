@@ -106,4 +106,11 @@ export class ApiService {
     return this.http.get(API_URL + "/collections/" + id)
       .map(collection => collection.json());
   }
+
+  public updateCollection(collection: Collection):Observable<Collection> {
+    return this.http.put(API_URL + "/collections/" + collection.id, collection)
+      .map(collection => {
+        return collection.json();
+      });
+  }
 }
