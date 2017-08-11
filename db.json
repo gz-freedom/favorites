@@ -40,6 +40,7 @@
       "title": "The Ultimate Angular CLI Reference Guide",
       "tags": "Angular2, TypeScript",
       "read": false,
+      "collectionId": 1,
       "id": 6
     },
     {
@@ -47,6 +48,7 @@
       "title": "Angular 2 Tutorial: Create a CRUD App with Angular CLI",
       "tags": "Angular2, TypeScript",
       "id": 7,
+      "collectionId": 1,
       "read": false
     },
     {
@@ -54,6 +56,7 @@
       "title": "Understanding Component Architecture: Refactoring an Angular App",
       "tags": "Angular2, TypeScript",
       "id": 8,
+      "collectionId": 1,
       "read": false
     },
     {
@@ -61,7 +64,15 @@
       "title": "Angular and RxJS: Create an API Service to Talk to a REST Backend",
       "tags": "Angular2, TypeScript",
       "id": 9,
+      "collectionId": 1,
       "read": false
+    },
+    {
+      "read": false,
+      "title": "A list of funny and tricky JavaScript Examples",
+      "url": "https://github.com/denysdovhan/wtfjs",
+      "tags": "JavaScript",
+      "id": 11
     }
   ],
   "tags": [
@@ -104,10 +115,10 @@
     },
     {
       "articleIds": [
-        1
+        11
       ],
-      "name": "baidu",
-      "id": 5
+      "name": "JavaScript",
+      "id": 6
     }
   ],
   "collections": [
@@ -120,6 +131,13 @@
         9
       ],
       "id": 1
+    },
+    {
+      "name": "test Collection",
+      "articleIds": [
+        12
+      ],
+      "id": 2
     }
   ]
 }

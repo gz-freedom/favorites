@@ -73,6 +73,11 @@ export class ApiService {
                 }
               }
             });
+            // update collection
+            this.getCollectionById(id).subscribe(collection => {
+              collection.articleIds.splice(collection.articleIds.indexOf(id), 1);
+              this.updateCollection(collection).subscribe();
+            });
             return res.json();
           });
       });

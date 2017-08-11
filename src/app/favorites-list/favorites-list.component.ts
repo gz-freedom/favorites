@@ -26,7 +26,9 @@ export class FavoritesListComponent implements OnInit {
 
   deleteFavorite(id: number) {
     // todo
-    this.appService.deleteFavoriteById(id).subscribe();
+    this.appService.deleteFavoriteById(id).subscribe(fav => {
+      console.dir(fav);
+    });
   }
   markAsRead(favorite: Favorite) {
     favorite.read = !favorite.read;
