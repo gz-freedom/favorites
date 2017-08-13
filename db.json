@@ -133,10 +133,8 @@
       "id": 1
     },
     {
-      "name": "test Collection",
-      "articleIds": [
-        12
-      ],
+      "name": "test collection",
+      "articleIds": [],
       "id": 2
     }
   ]

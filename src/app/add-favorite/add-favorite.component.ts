@@ -19,7 +19,6 @@ export class AddFavoriteComponent implements OnInit {
   newCollection: Collection = new Collection();
   collections: Collection[] = [];
   addForm: FormGroup;
-  selectedCollectionId: number = 0;
 
   constructor(
     private appService: AppService,
@@ -29,7 +28,8 @@ export class AddFavoriteComponent implements OnInit {
     this.addForm = fb.group({
       "favTitle": [null, Validators.required],
       "favUrl": [null, Validators.required],
-      "favTags": [null, Validators.required]
+      "favTags": [null, Validators.required],
+      "favCollectionId": 0
     });
   }
 
@@ -52,15 +52,16 @@ export class AddFavoriteComponent implements OnInit {
       read: false,
       title: this.addForm.value.favTitle,
       url: this.addForm.value.favUrl,
-      tags: this.addForm.value.favTags
+      tags: this.addForm.value.favTags,
+      collectionId: this.addForm.value.favCollectionId
     });
     this.appService.addFavorite(newFavorite)
       .subscribe(newFav => {
         this.favorites.concat(newFav);
 
         // update collection if select any
-        if(this.selectedCollectionId) {
-          let selectedCollection = this.collections.filter(collection => collection.id === +this.selectedCollectionId).pop();
+        if(this.addForm.value.favCollectionId) {
+          let selectedCollection = this.collections.filter(collection => collection.id === +this.addForm.value.favCollectionId).pop();
           selectedCollection.articleIds.push(newFav.id);
           this.appService.updateCollection(selectedCollection).subscribe();
         }
@@ -88,9 +89,7 @@ export class AddFavoriteComponent implements OnInit {
             this.appService.addTag(tag).subscribe();
           }
         });
-        
         this.addForm.reset();
-        this.selectedCollectionId = 0;
       });
   }
 

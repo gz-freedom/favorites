@@ -57,29 +57,33 @@ export class ApiService {
   }
 
   public deleteFavoriteById(id: number) {
+    this.http.get(API_URL + "/favorites/" + id).subscribe(fav => {
+      // update collection
+      this.getCollectionById(fav.json().collectionId).subscribe(collection => {
+        collection.articleIds.splice(collection.articleIds.indexOf(id), 1);
+        this.updateCollection(collection).subscribe();
+      });
+    });
+
+    // update tag
+    this.http.get(API_URL + "/tags").subscribe(tags => {
+      tags.json().forEach(tag => {
+        if(tag.articleIds.includes(id)) {
+          tag.articleIds.splice(tag.articleIds.indexOf(id), 1);
+          if(tag.articleIds.length === 0) {
+            // delete tag
+            return this.http.delete(API_URL + "/tags/" + tag.id).map(response => null).subscribe();
+          } else {
+            // update tag
+            return this.http.put(API_URL + "/tags/" + tag.id, tag).map(response => response.json()).subscribe();
+          }
+        }
+      });
+    });
+
     return this.http.delete(API_URL + "/favorites/" + id)
-      .concatMap(response => {
-        return this.http.get(API_URL + "/tags")
-          .concatMap(res => {
-            res.json().forEach(tag => {
-              if(tag.articleIds.includes(id)) {
-                tag.articleIds.splice(tag.articleIds.indexOf(id), 1);
-                if(tag.articleIds.length === 0) {
-                  // delete tag
-                  return this.http.delete(API_URL + "/tags/" + tag.id).map(response => null).subscribe();
-                } else {
-                  // update tag
-                  return this.http.put(API_URL + "/tags/" + tag.id, tag).map(response => response.json()).subscribe();
-                }
-              }
-            });
-            // update collection
-            this.getCollectionById(id).subscribe(collection => {
-              collection.articleIds.splice(collection.articleIds.indexOf(id), 1);
-              this.updateCollection(collection).subscribe();
-            });
-            return res.json();
-          });
+      .map(res => {
+        return null;
       });
   }
 
