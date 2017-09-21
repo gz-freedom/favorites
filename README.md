@@ -1,6 +1,6 @@
 # 我的收藏夹
-这应该是我第一个完整的Angular2项目和上传到github的完整的项目。
+做这个应用的目的主要是用来收藏那些个人认为重要也感兴趣的技术文章。
 
-使用Angular CLI来开发，感觉非常方便，请[参考这篇文章](https://www.sitepoint.com/ultimate-angular-cli-reference/)
+可以设置标签TAG，可以设置集合COLLECTION（比如想深入学习某个技术领域，可以将这个领域的相关文章集合在一起）等等
 
-使用[json server](https://github.com/typicode/json-server)来做后端
+刚开始是用Json Server来做数据存储，后来想用wilddog，但wilddog主要做实时通信的，而且查询等操作并不完善，所以决定还是用MongoDB来做吧。
