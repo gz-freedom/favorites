@@ -3,4 +3,6 @@
 
 可以设置标签TAG，可以设置集合COLLECTION（比如想深入学习某个技术领域，可以将这个领域的相关文章集合在一起）等等
 
-刚开始是用Json Server来做数据存储，后来想用wilddog，但wilddog主要做实时通信的，而且查询等操作并不完善，所以决定还是用MongoDB来做吧。
+刚开始是用Json Server来做数据存储，后来想用wilddog，但wilddog主要做实时通信的，而且查询等操作并不完善，所以决定还是放弃wilddog吧。
+
+想用MongoDB，但估计会新建一个rep来做。。。。
